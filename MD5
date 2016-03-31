@@ -1,0 +1,17 @@
+e359e6a15078ecca7fc16a161738a373 *DESCRIPTION
+30e4d3e4ec02329cb1dc22af053b5fd3 *LICENSE
+caa9dcdc191be481358cf0cece9e3b1f *NAMESPACE
+b0b83f364d1779b2c5b5090b7d209104 *R/gets.R
+46ce8c12700b387d62099558ef761a0d *R/rdnb.R
+d1df8ecae3366828cee9b8836a5e4870 *R/utils.R
+0c82deb0e9a30b75b1d1221463c9b7df *R/zzz.R
+d9e6e77a8b9be41bba0fb7a5c118f22a *inst/CITATION
+a03cec0f6998540e157a8aa5ed766900 *inst/NEWS
+2c4dda799c1bc6b2695b2486c347d671 *inst/doc/rdnb_vignette.Rmd
+470e1e090fecfa99fbcae248b5b6509e *inst/doc/rdnb_vignette.html
+934000af891d1fc42cb964e78b1839cb *man/changes.Rd
+9c05a95a2d4e5ea899833aceb5f8d06a *man/dnb_advanced.Rd
+5d8fc2beb9436a63cd0b454722d00527 *man/dnb_search.Rd
+7724fbc6d3b835b1dd48693f6a4ee55c *man/rdnb.Rd
+2c4dda799c1bc6b2695b2486c347d671 *vignettes/rdnb_vignette.Rmd
+470e1e090fecfa99fbcae248b5b6509e *vignettes/rdnb_vignette.html
