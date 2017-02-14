@@ -1,7 +1,7 @@
 dnb_get_url <- function(path, query, limit, start, token=dnb_token()) {
 	req <- GET("http://services.dnb.de/", path=path, query=list(version="1.1", operation="searchRetrieve", accessToken=token, query=query, maximumRecords=limit, startRecord=start, recordSchema="MARC21-xml"))
 	dnb_check(req)
-	message("Request: ", req$url) # for debugging
+	#message("Request: ", req$url) # for debugging
 	return(req)
 }
 
@@ -40,7 +40,7 @@ dnb_token <- function(force=FALSE) {
 }
 
 
-dnb_to_df <- function(lst) {
+dnb_to_df <- function(lst, clean) {
 	# prepare data.frame
 	nrec <- length(lst$records)
 	df <- data.frame(matrix(nrow=nrec, ncol=17))
@@ -136,5 +136,113 @@ dnb_to_df <- function(lst) {
 		}	
 	}
 	
+	# clean data
+	if(clean) {
+		if(nrow(df)>1) {
+			df <- as.data.frame(sapply(df, gsub, pattern="\u0098", replacement="", fixed=TRUE), stringsAsFactors=FALSE)
+			df <- as.data.frame(sapply(df, gsub, pattern="\u009c", replacement="", fixed=TRUE), stringsAsFactors=FALSE)
+			df <- as.data.frame(sapply(df, gsub, pattern=",,", replacement=",", fixed=TRUE), stringsAsFactors=FALSE)
+			df <- as.data.frame(sapply(df, gsub, pattern="..", replacement=".", fixed=TRUE), stringsAsFactors=FALSE)
+			df <- as.data.frame(sapply(df, gsub, pattern=";;", replacement=";", fixed=TRUE), stringsAsFactors=FALSE)
+		}
+		df$year <- sapply(df$year, gsub, pattern="[^0-9]", replacement="")
+		df$year <- as.numeric(df$year)
+		df$pages <- sapply(df$pages, gsub, pattern=" S.", replacement="", fixed=TRUE)
+		df$pages <- sapply(df$pages, gsub, pattern=" Seiten", replacement="", fixed=TRUE)
+		df$pages <- sapply(df$pages, gsub, pattern="[", replacement="", fixed=TRUE)
+		df$pages <- sapply(df$pages, gsub, pattern="]", replacement="", fixed=TRUE)
+		df$publisher <- sapply(df$publisher, gsub, pattern="Verl.", replacement="Verlag", fixed=TRUE)
+		df$publisher <- sapply(df$publisher, gsub, pattern="verl.", replacement="verlag", fixed=TRUE)
+		df$publisher <- sapply(df$publisher, gsub, pattern="[", replacement="", fixed=TRUE)
+		df$publisher <- sapply(df$publisher, gsub, pattern="]", replacement="", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="Aufl.", replacement="Auflage", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="aufl.", replacement="auflage", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="Ed.", replacement="Edition", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="ed.", replacement="edition", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="Orig.", replacement="Original", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="korr.", replacement="korrigierte", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="Nachdr.", replacement="Nachdruck", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="Bibliogr.", replacement="Bibliografie", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="dt.", replacement="deutsche", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="Dt.", replacement="Deutsche", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="Ver\u00F6ff.", replacement="Ver\u00F6ffentlichung", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="ver\u00F6ff.", replacement="ver\u00F6ffentlichung", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="Ausg.", replacement="Ausgabe", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="ausg.", replacement="ausgabe", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="Vollst.", replacement="Vollst\u00E4ndige", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="vollst.", replacement="vollst\u00E4ndige", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="\u00DCberarb.", replacement="\u00DCberarbeitete", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="\u00FCberarb.", replacement="\u00FCberarbeitete", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="Erw.", replacement="Erweiterte", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="erw.", replacement="erweiterte", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="Erg.", replacement="Erg\u00E4nzte", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="erg.", replacement="erg\u00E4nzte", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="Ungek.", replacement="Ungek\u00FCrzte", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="ungek.", replacement="ungek\u00FCrzte", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="Ver\u00E4nd.", replacement="Ver\u00E4nderte", fixed=TRUE)
+		#df$edition <- sapply(df$edition, gsub, pattern="ver\u00E4nd.", replacement="ver\u00E4nderte", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="[", replacement="", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="]", replacement="", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="1., ", replacement="1. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="2., ", replacement="2. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="3., ", replacement="3. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="4., ", replacement="4. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="5., ", replacement="5. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="6., ", replacement="6. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="7., ", replacement="7. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="8., ", replacement="8. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="9., ", replacement="9. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="10., ", replacement="10. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="11., ", replacement="11. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="12., ", replacement="12. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="13., ", replacement="13. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="14., ", replacement="14. ", fixed=TRUE)
+		df$edition <- sapply(df$edition, gsub, pattern="15., ", replacement="15. ", fixed=TRUE)
+		df$price <- sapply(df$price, gsub, pattern="kart.", replacement="Kartoniert", fixed=TRUE)
+		df$price <- sapply(df$price, gsub, pattern="Gb.", replacement="Gebunden", fixed=TRUE)
+		df$price <- sapply(df$price, gsub, pattern="Spiralb.", replacement="Spiralbindung", fixed=TRUE)
+		df$price <- sapply(df$price, gsub, pattern="Pb.", replacement="Paperback", fixed=TRUE)
+	}
+		
 	return(df)
+}
+
+
+#' @title Number of records
+#' @description \code{n_rec} returns the number of items in a list of records returned by a DNB-search. 
+#' @param dnb_obj the DNB-search object returned \code{\link{dnb_search}} or \code{\link{dnb_advanced}}.
+#' @return Number of records found.
+#' @export
+#' @examples
+#' \dontrun{
+#' dnb.srch <- dnb_search(title="katze")
+#' n_rec(dnb.srch)
+#' }
+n_rec <- function(dnb_obj) {
+  # check lor and return nrec
+  if(is.null(attr(dnb_obj, "number_of_records"))) {
+    return(NULL)
+  } else {
+    return(attr(dnb_obj, "number_of_records"))
+  }
+}
+
+
+#' @title Print search query
+#' @description \code{print_query} prints out the query used for a DNB-search request.
+#' @param dnb_obj the DNB-serch object returned by \code{\link{dnb_search}} or \code{\link{dnb_advanced}}.
+#' @return Query string.
+#' @export
+#' @examples
+#' \dontrun{
+#' dnb.srch <- dnb_search(title="katze")
+#' print_query(dnb.srch)
+#' }
+print_query <- function(dnb_obj) {
+  # check lor and return query
+  if(is.null(attr(dnb_obj, "query"))) {
+    return(NULL)
+  } else {
+    return(attr(dnb_obj, "query"))
+  }
 }
