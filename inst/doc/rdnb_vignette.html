@@ -203,7 +203,7 @@ hr {
 <body>
 <!--
 %\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{Introduction to rdnb}
+%\VignetteIndexEntry{Intoduction to rdnb}
 %\VignetteEncoding{UTF-8}
 -->
 
@@ -211,18 +211,12 @@ hr {
 
 <p><code>rdnb</code> is an R wrapper for the Deutsche Nationalbibliothek (German National Library) API, available at <a href="http://www.dnb.de">http://www.dnb.de</a>. As the German central archival library, the German National Library is collecting, archiving, bibliographically classifying all German and German-language publications, foreign publications about Germany, translations of German works, and the works of German-speaking emigrants published abroad between 1933 and 1945.</p>
 
-<p>All bibliographic data of the German National Library are provided free of charge and can be freely re-used under &ldquo;Creative Commons Zero&rdquo; (<a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0 1.0</a>) terms. The metadata and online interfaces are provided with no guarantee of their being continuous, punctual, error-free or complete, or of their not infringing the rights of third parties (e.g. personal rights and copyright).</p>
-
-<p>A personal access token is required for usage and can be requested by sending an e-mail to the Interface Service (<a href="mailto:schnittstellen-service@dnb.de">schnittstellen-service@dnb.de</a>). The e-mail must include the required catalogue &ldquo;Catalogue of German National Library (DNB) / Katalog der Deutschen Nationalbibliothek (DNB)&rdquo; and the access option &ldquo;via access token / über Zugangscode&rdquo;.</p>
-
-<p>If you do not want to enter your token for each R session, put the following in your .Renviron or .Rprofile file:
-<code>DNB_TOKEN=PUTYOURTOKENHERE</code>.</p>
+<p>All bibliographic data of the German National Library are provided free of charge and can be freely re-used under &ldquo;Creative Commons Zero&rdquo; (<a href="https://creativecommons.org/publicdomain/zero/1.0/deed.de">CC0 1.0</a>) terms. The metadata and online interfaces are provided with no guarantee of their being continuous, punctual, error-free or complete, or of their not infringing the rights of third parties (e.g. personal rights and copyright).</p>
 
 <h4>Source and more details:</h4>
 
-<p><a href="http://www.dnb.de/EN/Wir/wir_node.html">About the DNB</a>; 
-<a href="http://www.dnb.de/EN/Service/DigitaleDienste/SRU/sru_node.html">About the interface and access requirements</a>; 
-<a href="http://dnb.dnb.de">The DNB web search</a></p>
+<p><a href="https://www.dnb.de/EN/Ueber-uns/ueberUns_node.html">About the DNB</a>; 
+<a href="https://www.dnb.de/EN/Professionell/Metadatendienste/Datenbezug/SRU/sru_node.html">About the interface</a></p>
 
 <h3>Package install</h3>
 
@@ -233,10 +227,7 @@ hr {
 
 <p>To install the development version from GitHub the <code>devtools</code>-package is required.</p>
 
-<pre><code class="r">if(packageVersion(&quot;devtools&quot;) &lt; 1.6) {
-  install.packages(&quot;devtools&quot;)
-}
-devtools::install_github(&quot;chgrl/rdnb&quot;)
+<pre><code class="r">devtools::install_github(&quot;chgrl/rdnb&quot;)
 </code></pre>
 
 <h3>Load the package</h3>
@@ -344,7 +335,7 @@ set.of.types &lt;- dnb_search(title=&quot;katze&quot;, type=c(&quot;books&quot;,
 
 <h5>Search for language</h5>
 
-<p>The DNB also archives publications in other languages than German, e.g. when they are about Germany or publicated in Germany. The language(s) can be filtered by ISO 639-2/B <a href="http://www.dnb.de/SharedDocs/Downloads/DE/DNB/standardisierung/inhaltserschliessung/sprachenCodesEnglisch.pdf?__blob=publicationFile">code</a>, like &ldquo;ger&rdquo; (German), &ldquo;eng&rdquo; (English), &ldquo;fre&rdquo; (French), &ldquo;spa&rdquo; (Spanish) or &ldquo;gsw&rdquo; (Swiss German). A vector of string values is combined by &ldquo;OR&rdquo;.</p>
+<p>The DNB also archives publications in other languages than German, e.g. when they are about Germany or publicated in Germany. The language(s) can be filtered by ISO 639-2/B <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes">code</a>, like &ldquo;ger&rdquo; (German), &ldquo;eng&rdquo; (English), &ldquo;fre&rdquo; (French), &ldquo;spa&rdquo; (Spanish) or &ldquo;gsw&rdquo; (Swiss German). A vector of string values is combined by &ldquo;OR&rdquo;.</p>
 
 <pre><code class="r">single.language &lt;- dnb_search(title=&quot;cat&quot;, language=&quot;eng&quot;)
 set.of.languages &lt;- dnb_search(title=c(&quot;cat&quot;, &quot;katze&quot;), language=c(&quot;eng&quot;, &quot;ger&quot;))
@@ -478,7 +469,7 @@ all.results &lt;- dnb_search(title=&quot;katze&quot;, year=2016, limit=&quot;all
 
 <h4>Advanced search - <code>dnb_advanced</code></h4>
 
-<p><code>dnb_advanced</code> allows for complex requests using the Contextual Query Language (CQL). See the <a href="http://www.dnb.de/EN/Header/Hilfe/kataloghilfeExpertensuche.html">DNB advanced search help pages</a> for available indices and a list of examples.</p>
+<p><code>dnb_advanced</code> allows for complex requests using the Contextual Query Language (CQL). See the <a href="https://www.dnb.de/expertensuche">DNB advanced search help pages</a> for available indices and a list of examples.</p>
 
 <p>The following advanced search returns a list of german or english children&#39;s books titled with &#39;cat&#39;, excluding titles containing &#39;dog&#39;, since the year 2001:</p>
 
