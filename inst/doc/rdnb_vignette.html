@@ -209,7 +209,7 @@ hr {
 
 <h3>About the package</h3>
 
-<p><code>rdnb</code> is an R wrapper for the Deutsche Nationalbibliothek (German National Library) API, available at <a href="http://www.dnb.de">http://www.dnb.de</a>. As the German central archival library, the German National Library is collecting, archiving, bibliographically classifying all German and German-language publications, foreign publications about Germany, translations of German works, and the works of German-speaking emigrants published abroad between 1933 and 1945.</p>
+<p><code>rdnb</code> is an R wrapper for the Deutsche Nationalbibliothek (German National Library) API, available at <a href="https://www.dnb.de/EN/Home/home_node.html">https://www.dnb.de/EN/Home/home_node.html</a>. As the German central archival library, the German National Library is collecting, archiving, bibliographically classifying all German and German-language publications, foreign publications about Germany, translations of German works, and the works of German-speaking emigrants published abroad between 1933 and 1945.</p>
 
 <p>All bibliographic data of the German National Library are provided free of charge and can be freely re-used under &ldquo;Creative Commons Zero&rdquo; (<a href="https://creativecommons.org/publicdomain/zero/1.0/deed.de">CC0 1.0</a>) terms. The metadata and online interfaces are provided with no guarantee of their being continuous, punctual, error-free or complete, or of their not infringing the rights of third parties (e.g. personal rights and copyright).</p>
 
@@ -356,9 +356,9 @@ all.results &lt;- dnb_search(title=&quot;katze&quot;, year=2016, limit=&quot;all
 
 <pre><code class="r">cats &lt;- dnb_search(title=&quot;katze&quot;, limit=3, print=TRUE)
 #&gt;           id                        link
-#&gt; 1 1116362198 http://d-nb.info/1116362198
-#&gt; 2 1120516579 http://d-nb.info/1120516579
-#&gt; 3 1125403497 http://d-nb.info/1125403497
+#&gt; 1 1116362198 https://d-nb.info/1116362198
+#&gt; 2 1120516579 https://d-nb.info/1120516579
+#&gt; 3 1125403497 https://d-nb.info/1125403497
 #&gt;                                               author
 #&gt; 1 Teckentrup, Britta (ill); Teckentrup, Britta (aut)
 #&gt; 2                       Frey, Alexander Moritz (aut)
@@ -380,7 +380,7 @@ all.results &lt;- dnb_search(title=&quot;katze&quot;, year=2016, limit=&quot;all
 #&gt; 2     19 cm x 12 cm 1. Auflage, neue Ausgabe    &lt;NA&gt; &lt;NA&gt;
 #&gt; 3              &lt;NA&gt;               1. Auflage    &lt;NA&gt; &lt;NA&gt;
 #&gt;                                                                                               description
-#&gt; 1 http://deposit.d-nb.de/cgi-bin/dokserv?id=992efedfe14a4b06ad7dc4f344cd9e87&amp;prov=M&amp;dok_var=1&amp;dok_ext=htm
+#&gt; 1 https://deposit.d-nb.de/cgi-bin/dokserv?id=992efedfe14a4b06ad7dc4f344cd9e87&amp;prov=M&amp;dok_var=1&amp;dok_ext=htm
 #&gt; 2                                                                                                    &lt;NA&gt;
 #&gt; 3                                                                                                    &lt;NA&gt;
 #&gt;                                                             cover
@@ -469,7 +469,7 @@ all.results &lt;- dnb_search(title=&quot;katze&quot;, year=2016, limit=&quot;all
 
 <h4>Advanced search - <code>dnb_advanced</code></h4>
 
-<p><code>dnb_advanced</code> allows for complex requests using the Contextual Query Language (CQL). See the <a href="https://www.dnb.de/expertensuche">DNB advanced search help pages</a> for available indices and a list of examples.</p>
+<p><code>dnb_advanced</code> allows for complex requests using the Contextual Query Language (CQL). See the <a href="https://www.dnb.de/EN/Service/Hilfe/Katalog/kataloghilfeExpertensuche.html">DNB advanced search help pages</a> for available indices and a list of examples.</p>
 
 <p>The following advanced search returns a list of german or english children&#39;s books titled with &#39;cat&#39;, excluding titles containing &#39;dog&#39;, since the year 2001:</p>
 

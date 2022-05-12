@@ -2,16 +2,17 @@ Package: rdnb
 Type: Package
 Title: R Interface to the 'Deutsche Nationalbibliothek (German National
         Library) API'
-Version: 0.1-4
-Date: 2021-04-17
+Version: 0.1-5
+Date: 2022-05-12
 Author: Christian Graul [aut, cre]
 Maintainer: Christian Graul <christian.graul@gmail.com>
 Description: A wrapper for the 'Deutsche Nationalbibliothek (German National
-    Library) API', available at <https://www.dnb.de>. The German National Library is
-    the German central archival library, collecting, archiving, bibliographically
-    classifying all German and German-language publications, foreign
-    publications about Germany, translations of German works, and the works of
-    German-speaking emigrants published abroad between 1933 and 1945.
+    Library) API', available at <https://www.dnb.de/EN/Home/home_node.html>. 
+    The German National Library is the German central archival library, 
+    collecting, archiving, bibliographically classifying all German and 
+    German-language publications, foreign publications about Germany, 
+    translations of German works, and the works of German-speaking emigrants 
+    published abroad between 1933 and 1945.
 URL: https://github.com/chgrl/rdnb
 BugReports: https://github.com/chgrl/rdnb/issues
 License: MIT + file LICENSE
@@ -19,7 +20,7 @@ VignetteBuilder: knitr
 NeedsCompilation: no
 Imports: brew, grDevices, httr, methods, utils, stats, stringr, xml2
 Suggests: knitr, markdown
-RoxygenNote: 7.1.1
-Packaged: 2021-04-17 23:21:32 UTC; graul
+RoxygenNote: 7.1.2
+Packaged: 2022-05-12 19:46:31 UTC; SauerGraul
 Repository: CRAN
-Date/Publication: 2021-04-18 14:50:06 UTC
+Date/Publication: 2022-05-12 21:00:02 UTC
